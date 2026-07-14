@@ -2,11 +2,6 @@ from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 import os
 import shutil
-from dotenv import load_dotenv
-
-# Load local environment variables from .env
-load_dotenv()
-
 from services.loader import PDFLoader
 from services.splitter import TextSplitter
 from services.vector_store import VectorStore
