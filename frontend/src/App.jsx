@@ -12,7 +12,7 @@ import {
   AlertCircle 
 } from 'lucide-react';
 
-const BACKEND_URL = 'http://localhost:8000';
+const BACKEND_URL = import.meta.env.VITE_API_URL || 'https://rag-model-qqsx.onrender.com';
 
 function App() {
   const [file, setFile] = useState(null);
