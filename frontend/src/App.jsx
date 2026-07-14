@@ -1,18 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { 
-  Brain, 
-  FileUp, 
-  FileCheck, 
-  FileX, 
-  Send, 
-  User, 
-  Bot, 
-  Lightbulb, 
-  CheckCircle, 
-  AlertCircle 
+import {
+  Brain,
+  FileUp,
+  FileCheck,
+  FileX,
+  Send,
+  User,
+  Bot,
+  Lightbulb,
+  CheckCircle,
+  AlertCircle
 } from 'lucide-react';
 
-const BACKEND_URL = import.meta.env.VITE_API_URL || 'https://rag-model-qqsx.onrender.com';
+const BACKEND_URL = import.meta.env.VITE_API_URL;
 
 function App() {
   const [file, setFile] = useState(null);
@@ -97,11 +97,11 @@ function App() {
       }
 
       const data = await response.json();
-      
+
       setDocumentLoaded(true);
       setFileName(data.filename);
       setTotalChunks(data.total_chunks);
-      
+
       // Clear previous messages and output a welcome bot message
       setMessages([
         {
@@ -146,10 +146,10 @@ function App() {
     } catch (error) {
       console.error('Ask Error:', error);
       setMessages(prev => [
-        ...prev, 
-        { 
-          text: 'Sorry, I encountered an error answering your question. Please verify the backend connection.', 
-          sender: 'bot' 
+        ...prev,
+        {
+          text: 'Sorry, I encountered an error answering your question. Please verify the backend connection.',
+          sender: 'bot'
         }
       ]);
       showToast('Failed to reach backend API.', false);
@@ -230,7 +230,7 @@ function App() {
         const lineParts = [];
         let inlineIdx = 0;
         let inlineMatch;
-        
+
         while ((inlineMatch = inlineCodeRegex.exec(processedLine)) !== null) {
           if (inlineMatch.index > inlineIdx) {
             lineParts.push({ type: 'text', content: processedLine.substring(inlineIdx, inlineMatch.index) });
@@ -330,7 +330,7 @@ function App() {
               <div className="section-title">
                 <FileUp size={16} /> Document Source
               </div>
-              <div 
+              <div
                 className={`upload-zone ${dragActive ? 'dragover' : ''}`}
                 onClick={triggerFileInput}
                 onDragEnter={handleDrag}
@@ -340,8 +340,8 @@ function App() {
               >
                 <FileUp size={32} className="upload-icon" />
                 <p><span>Click to upload</span> or drag and drop<br />your PDF file here</p>
-                <input 
-                  type="file" 
+                <input
+                  type="file"
                   ref={fileInputRef}
                   onChange={handleFileChange}
                   accept=".pdf"
@@ -376,20 +376,20 @@ function App() {
                 <Lightbulb size={16} /> Suggested Prompts
               </div>
               <div className="samples-container">
-                <button 
-                  className="sample-tag" 
+                <button
+                  className="sample-tag"
                   onClick={() => useSamplePrompt('Summarize the key points of the document.')}
                 >
                   Summarize the key points of the document.
                 </button>
-                <button 
-                  className="sample-tag" 
+                <button
+                  className="sample-tag"
                   onClick={() => useSamplePrompt('What are the primary conclusions or findings?')}
                 >
                   What are the primary conclusions or findings?
                 </button>
-                <button 
-                  className="sample-tag" 
+                <button
+                  className="sample-tag"
                   onClick={() => useSamplePrompt('Explain any complex terms or methodologies used.')}
                 >
                   Explain any complex terms or methodologies used.
@@ -443,18 +443,18 @@ function App() {
                   </div>
                 </div>
               )}
-              
+
               <div ref={chatEndRef} />
             </div>
 
             {/* Input Bar */}
             <form className="input-bar" onSubmit={sendMessage}>
               <div className="input-wrapper">
-                <textarea 
-                  className="chat-input" 
+                <textarea
+                  className="chat-input"
                   value={inputText}
                   onChange={(e) => setInputText(e.target.value)}
-                  placeholder="Ask a question about the document..." 
+                  placeholder="Ask a question about the document..."
                   disabled={!documentLoaded}
                   rows={1}
                   onKeyDown={(e) => {
@@ -464,9 +464,9 @@ function App() {
                     }
                   }}
                 ></textarea>
-                <button 
-                  type="submit" 
-                  className="send-btn" 
+                <button
+                  type="submit"
+                  className="send-btn"
                   disabled={!documentLoaded || !inputText.trim()}
                 >
                   <Send size={16} />
